@@ -13,7 +13,7 @@ export default function Home() {
       <Topbar />
 
       <Container className="mt-10 pb-14">
-        <div className="flex gap-[60px]">
+        <div className="flex gap-[80px]">
           {/* Filter */}
           <div className="w-[250]">
             <Filters/>
@@ -26,12 +26,70 @@ export default function Home() {
               title={"Пиццы"} items={[
                 {
                   id: 1,
-                  name: "Чизбургер-пицца",
+                  name: "Чизбургер-пицца1",
+                  imageUrl:"https://media.dodostatic.net/image/r:292x292/11EED73C6B01E9ECAB89410716435740.avif",
+                  price: 550,
+                  items: [{ price: 550 }],
+                },
+                {
+                  id: 2,
+                  name: "Чизбургер-пицц2",
                   imageUrl:"https://media.dodostatic.net/image/r:292x292/11EED73C6B01E9ECAB89410716435740.avif",
                   price: 550,
                   items: [{ price: 550 }],
                 },
               ]} categoryId={1} />
+              <ProductsGroupList 
+              title={"Комбо"} items={[
+                {
+                  id: 1,
+                  name: "Чизбургер-пицца1",
+                  imageUrl:"https://media.dodostatic.net/image/r:292x292/11EED73C6B01E9ECAB89410716435740.avif",
+                  price: 550,
+                  items: [{ price: 550 }],
+                },
+                {
+                  id: 2,
+                  name: "Чизбургер-пицц2",
+                  imageUrl:"https://media.dodostatic.net/image/r:292x292/11EED73C6B01E9ECAB89410716435740.avif",
+                  price: 550,
+                  items: [{ price: 550 }],
+                },
+              ]} categoryId={2} />
+              <ProductsGroupList 
+              title={"Закуски"} items={[
+                {
+                  id: 1,
+                  name: "Чизбургер-пицца1",
+                  imageUrl:"https://media.dodostatic.net/image/r:292x292/11EED73C6B01E9ECAB89410716435740.avif",
+                  price: 550,
+                  items: [{ price: 550 }],
+                },
+                {
+                  id: 2,
+                  name: "Чизбургер-пицц2",
+                  imageUrl:"https://media.dodostatic.net/image/r:292x292/11EED73C6B01E9ECAB89410716435740.avif",
+                  price: 550,
+                  items: [{ price: 550 }],
+                },
+              ]} categoryId={3} />
+              <ProductsGroupList 
+              title={"Коктейли"} items={[
+                {
+                  id: 1,
+                  name: "Чизбургер-пицца1",
+                  imageUrl:"https://media.dodostatic.net/image/r:292x292/11EED73C6B01E9ECAB89410716435740.avif",
+                  price: 550,
+                  items: [{ price: 550 }],
+                },
+                {
+                  id: 2,
+                  name: "Чизбургер-пицц2",
+                  imageUrl:"https://media.dodostatic.net/image/r:292x292/11EED73C6B01E9ECAB89410716435740.avif",
+                  price: 550,
+                  items: [{ price: 550 }],
+                },
+              ]} categoryId={4} />
             </div>
           </div>
         </div>
