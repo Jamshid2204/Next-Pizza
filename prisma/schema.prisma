@@ -7,12 +7,16 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("POSTGRES_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model User {
   id       Int    @id @default(autoincrement())
+
   fullName String
+  email    String
+  password String
   phone    String @unique
 
   role         UserRole          @default(USER)
@@ -23,10 +27,12 @@ model User {
 
   phoneVerified DateTime?
   createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 model Product {
   id       Int     @id @default(autoincrement())
+
   name     String
   imageUrl String
   active   Boolean @default(false)
