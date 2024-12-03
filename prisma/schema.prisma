@@ -37,6 +37,9 @@ model Product {
   name     String
   imageUrl String
 
+  ingredients Ingredient[]
+  variations ProductItem[]
+
   category Category @relation(fields: [categoryId], references: [id])
   categoryId Int
 
@@ -46,6 +49,15 @@ model Product {
 
 model ProductItem {
   id Int @id @default(autoincrement())
+
+  price Int
+  size Int?
+  pizzaTpe Int?
+
+  cartItems CartItem[]
+
+  product Product @relation(fields: [categoryId], references: [id])
+  productId Int
 }
 
 model Ingredient {
@@ -56,6 +68,7 @@ model Ingredient {
   imageUrl String
 
   products Product[]
+  cartItems CartItem[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -64,8 +77,10 @@ model Ingredient {
 model Cart {
   id Int @id @default(autoincrement())
 
-  userId Int  @unique
-  user   User @relation(fields: [userId], references: [id])
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?  @unique
+
+  token String
 
   totalAmount Int @default(0)
 
@@ -77,20 +92,13 @@ model Cart {
 }
 
 model CartItem {
-  id Int @id @default(autoincrement())
 
-  pizzaId Int
-  pizza   Pizza @relation(fields: [pizzaId], references: [id])
-
-  cartId Int
-  cart   Cart @relation(fields: [cartId], references: [id])
-
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
-
-  ingredients Ingredient[]
+  productItemId Int
+  productItemId   productItemId @relation(fields: [productItemId], references: [id])
 
   quantity Int
+
+  ingredients Ingredient[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
