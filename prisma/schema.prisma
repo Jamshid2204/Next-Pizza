@@ -18,6 +18,10 @@ model User {
   email    String @unique
   password String
 
+  cart Cart[]
+  orders Order[]
+  verificationCode VerificationCode?
+
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
@@ -38,7 +42,7 @@ model Product {
   imageUrl String
 
   ingredients Ingredient[]
-  variations ProductItem[]
+  items ProductItem[]
 
   category Category @relation(fields: [categoryId], references: [id])
   categoryId Int
@@ -56,7 +60,7 @@ model ProductItem {
 
   cartItems CartItem[]
 
-  product Product @relation(fields: [categoryId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
   productId Int
 }
 
@@ -80,21 +84,24 @@ model Cart {
   user   User? @relation(fields: [userId], references: [id])
   userId Int?  @unique
 
+  items CartItem[]
+
   token String
 
   totalAmount Int @default(0)
-
-  items  CartItem[]
-  orders Order[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model CartItem {
+  id Int @id @default(autoincrement())
 
+  cart Cart @relation(fields: [cartId], references: [id])
+  cartId Int
+
+  productItem   productItem @relation(fields: [productItemId], references: [id])
   productItemId Int
-  productItemId   productItemId @relation(fields: [productItemId], references: [id])
 
   quantity Int
 
@@ -107,33 +114,24 @@ model CartItem {
 model Order {
   id Int @id @default(autoincrement())
 
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?
 
-  cartId Int
-  cart   Cart @relation(fields: [cartId], references: [id])
+  token String
 
-  status      OrderStatus @default(PENDING)
   totalAmount Int
+  status      OrderStatus @default(PENDING)
   paymentId   String?
 
+  items Json
+  fullName String
+  email String
+  phone String
+  address String
+  comment String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model VerificationCode {
-  id Int @id @default(autoincrement())
-
-  userId Int  @unique
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  code String
-
-  expiresAt DateTime @default(now())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([userId, code])
 }
 
 enum OrderStatus {
