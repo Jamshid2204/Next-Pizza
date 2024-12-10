@@ -17,8 +17,9 @@ model User {
   fullName String
   email    String @unique
   password String
+  role UserRole @default(USER)
 
-  cart Cart[]
+  cart Cart?
   orders Order[]
   verificationCode VerificationCode?
 
@@ -132,6 +133,21 @@ model Order {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model VerificationCode {
+  id Int @id @default(autoincrement())
+
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  code String
+
+  expiresAt DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, code])
 }
 
 enum OrderStatus {
