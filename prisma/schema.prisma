@@ -104,6 +104,9 @@ model CartItem {
   productItem   productItem @relation(fields: [productItemId], references: [id])
   productItemId Int
 
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
   quantity Int
 
   ingredients Ingredient[]
